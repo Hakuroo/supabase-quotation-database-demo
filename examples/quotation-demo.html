@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quotation Database Demo</title>
+    <meta
+      name="description"
+      content="A functional demo showing quotation logic with fictional construction and industrial cost data."
+    >
+    <link rel="stylesheet" href="quotation-demo.css">
+  </head>
+  <body>
+    <main class="app">
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow">Supabase-style quotation workflow</p>
+        <h1 id="page-title">Build clearer industrial quotes across materials, labor, services, and margin.</h1>
+        <p>
+          This demo uses fictional construction data to show how a database-backed
+          quotation workflow can organize cost categories, quantities, overhead,
+          contingency, margin, and review notes.
+        </p>
+      </section>
+
+      <section class="workspace" aria-label="Quotation builder">
+        <form class="quote-form" id="quote-form">
+          <div class="form-header">
+            <h2>Build Quote</h2>
+            <p>Select a cost category, choose a fictional item, and add it to the draft quote.</p>
+          </div>
+
+          <label for="category-select">Cost category</label>
+          <select id="category-select" required></select>
+
+          <label for="item-select">Item</label>
+          <select id="item-select" required></select>
+
+          <label for="quantity-input">Quantity</label>
+          <input id="quantity-input" type="number" min="1" step="1" value="1" required>
+
+          <button class="primary-button" type="submit">Add item</button>
+        </form>
+
+        <section class="quote-panel" aria-labelledby="quote-title">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Draft quotation</p>
+              <h2 id="quote-title">Industrial Storage Build</h2>
+            </div>
+
+            <div class="percentage-controls" aria-label="Percentage controls">
+              <label for="overhead-input">
+                Overhead %
+                <input id="overhead-input" type="number" min="0" max="100" step="1" value="8">
+              </label>
+              <label for="contingency-input">
+                Contingency %
+                <input id="contingency-input" type="number" min="0" max="100" step="1" value="5">
+              </label>
+              <label for="margin-input">
+                Margin %
+                <input id="margin-input" type="number" min="0" max="100" step="1" value="15">
+              </label>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Category</th>
+                  <th scope="col">Item</th>
+                  <th scope="col">Unit</th>
+                  <th scope="col">Qty</th>
+                  <th scope="col">Unit cost</th>
+                  <th scope="col">Subtotal</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody id="quote-items">
+                <tr class="empty-row">
+                  <td colspan="7">No items added yet.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <dl class="totals">
+            <div>
+              <dt>Materials subtotal</dt>
+              <dd id="materials-subtotal-output">$0.00</dd>
+            </div>
+            <div>
+              <dt>Labor / Services subtotal</dt>
+              <dd id="labor-services-subtotal-output">$0.00</dd>
+            </div>
+            <div>
+              <dt>Logistics / Equipment subtotal</dt>
+              <dd id="logistics-equipment-subtotal-output">$0.00</dd>
+            </div>
+            <div>
+              <dt>Overhead</dt>
+              <dd id="overhead-output">$0.00</dd>
+            </div>
+            <div>
+              <dt>Contingency</dt>
+              <dd id="contingency-output">$0.00</dd>
+            </div>
+            <div>
+              <dt>Margin</dt>
+              <dd id="margin-output">$0.00</dd>
+            </div>
+            <div class="total-row">
+              <dt>Final estimated total</dt>
+              <dd id="total-output">$0.00</dd>
+            </div>
+          </dl>
+
+          <button class="secondary-button" id="summary-button" type="button">
+            Generate quotation summary
+          </button>
+
+          <aside class="summary-panel" aria-labelledby="summary-title">
+            <h3 id="summary-title">Summary output</h3>
+            <p id="summary-output" aria-live="polite">
+              Add items to generate a quotation summary.
+            </p>
+          </aside>
+        </section>
+      </section>
+    </main>
+
+    <script src="quotation-demo.js"></script>
+  </body>
+</html>
